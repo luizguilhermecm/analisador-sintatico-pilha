@@ -29,11 +29,11 @@ void Sintatico::analise(){
   printTokens();
   exit(0);
   }
-  if (pilha.top() > 6){
+  else if (pilha.top() > 6){
     if (tok == pilha.top()) avancar();
     else error();
   }
-  else {
+  else if (pilha.top() <= 6){
     cout << pilha.top() <<  " - " << tok <<endl;
     if (pilha.top() == 2) E();
     else if (pilha.top() == 3) E_();
@@ -41,6 +41,7 @@ void Sintatico::analise(){
     else if (pilha.top() == 5) T_();
     else if (pilha.top() == 6) F();
   }
+  else error();
 }
 
 void Sintatico::S(){
