@@ -104,9 +104,9 @@ void Lexico::Token (int final) {
 	switch (final) {
     case 3 : setToken (ID) ; cout << "ID \n"; break;
 		case 4 : setToken (PLUS) ; cout << "Plus" << endl; break;
-    case 5 : setToken (ASTERISCO) ; break;
+    case 5 : setToken (ASTERISCO) ; cout << "ASTERISCO" << endl; break;
     case 6 : setToken (ABREPAR) ; cout << "ABREPAR" << endl; break;
-    case 7 : setToken (FECHAPAR) ; break;
-    case 8 : setToken (DOLAR) ; break;
+    case 7 : setToken (FECHAPAR) ; cout << "FECHAPAR" << endl;break;
+    case 8 : setToken (DOLAR) ; cout << "DOLAR" << endl; break;
   }
 }

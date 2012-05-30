@@ -14,6 +14,7 @@ class Tokens{
     bool IsReservada (string palavra);
     void setToken (int new_token, int qnt);
     void EraseToken ();
+    int SizeToken ();
     enum automato_reservadas {ID = 7,
       PLUS,
       ASTERISCO,

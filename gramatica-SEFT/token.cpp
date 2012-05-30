@@ -46,6 +46,10 @@ void Tokens::Inverter (){
   aux.clear();
 }
 
+int Tokens::SizeToken(){
+  return Token.size();
+}
+
 void Tokens::printTokens(){
   int i = 0;
   while (i < Token.size()){

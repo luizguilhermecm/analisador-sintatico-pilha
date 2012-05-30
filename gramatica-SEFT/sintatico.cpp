@@ -16,6 +16,7 @@ void Sintatico::avancar(){
   tok = getToken(); 
   EraseToken(); 
   pilha.pop();
+  analise();
 }
 
 void Sintatico::eat(int token_consumir){ 
@@ -24,11 +25,21 @@ void Sintatico::eat(int token_consumir){
   } 
 }
 void Sintatico::analise(){
-  if (pilha.top() == DOLAR){
-  cout << "sucess";
-  printTokens();
-  exit(0);
+  cout << "ANALISE FOR - "<< pilha.top() << endl;
+  if (pilha.top() == DOLAR && SizeToken() == 0 ){
+    cout << "sucess";
+    printTokens();
+    exit(0);
   }
+
+  else if (pilha.empty())
+    cout << "VAZIA DAMMIT";
+
+  else if (pilha.top() == DOLAR && SizeToken() != 0)
+    error();
+
+  else if (pilha.top() == DOLAR) cout << "IUPI" << endl;
+
   else if (pilha.top() > 6){
     if (tok == pilha.top()) avancar();
     else error();
