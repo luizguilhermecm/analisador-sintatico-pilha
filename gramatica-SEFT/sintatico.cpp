@@ -45,7 +45,7 @@ void Sintatico::analise(){
     else error();
   }
   else if (pilha.top() <= 6){
-    cout << pilha.top() <<  " - " << tok <<endl;
+    cout << pilha.top() << " - " << SizeToken() <<  " - " << tok <<endl;
     if (pilha.top() == 2) E();
     else if (pilha.top() == 3) E_();
     else if (pilha.top() == 4) T();
@@ -69,8 +69,7 @@ void Sintatico::E(){
   pilha.push(4);
 
   analise();
-}
-
+} 
 void Sintatico::E_(){
   pilha.pop();
   if (tok == PLUS){
