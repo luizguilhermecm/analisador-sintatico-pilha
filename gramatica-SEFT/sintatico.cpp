@@ -13,8 +13,8 @@ void Sintatico::error(int erro, int queria){
   exit (0);
 }
 void Sintatico::avancar(){ 
-  tok = getToken(); 
   EraseToken(); 
+  tok = getToken(); 
   pilha.pop();
   analise();
 }
