@@ -9,18 +9,18 @@ Lexico::Lexico(){
       automato[i][j] = 0;
     }
   }
-  automato[1][0] = 2;
-  automato[1][2] = 4;
-  automato[1][3] = 5;
-  automato[1][4] = 6;
-  automato[1][5] = 7;
-  automato[1][6] = 8;
-  automato[2][1] = 3;
+  automato[1][0] = 7;
+  automato[1][2] = 5;
+  automato[1][3] = 6;
+  automato[1][4] = 3;
+  automato[1][5] = 4;
+  automato[1][6] = 2;
+  automato[7][1] = 8;
 
   indice[0]  = 'i';
   indice[1]  = 'd';
-  indice[2]  = '+';
-  indice[3]  = '*';
+  indice[2]  = ',';
+  indice[3]  = ']';
   indice[4]  = '(';
   indice[5]  = ')';
   indice[6]  = '$';
@@ -38,7 +38,7 @@ int Lexico::PosicaoIndice (char ch){
 
 bool Lexico::IsFinal (int estado){
   if (estado != 1 && 
-      estado != 2 &&
+      estado != 7 &&
       estado != 0)
     return true;
   else return false;
@@ -97,16 +97,16 @@ void Lexico::AnalisadorLexico(char * argumento){
   }
   Token (final_state);
   printTokens();
-  Inverter();
+//  Inverter();
 }
 
 void Lexico::Token (int final) {
 	switch (final) {
-    case 3 : setToken (ID) ; cout << "ID \n"; break;
-		case 4 : setToken (PLUS) ; cout << "Plus" << endl; break;
-    case 5 : setToken (ASTERISCO) ; cout << "ASTERISCO" << endl; break;
-    case 6 : setToken (ABREPAR) ; cout << "ABREPAR" << endl; break;
-    case 7 : setToken (FECHAPAR) ; cout << "FECHAPAR" << endl;break;
-    case 8 : setToken (DOLAR) ; cout << "DOLAR" << endl; break;
+    case 2 : setToken (DOLAR) ; cout << "DOLAR \n"; break;
+    case 3 : setToken (ABREPAR) ; cout << "ABREPAR \n"; break;
+		case 4 : setToken (FECHAPAR) ; cout << "FECHAPAR" << endl; break;
+    case 5 : setToken (VIRGULA) ; cout << "VIRGULA" << endl; break;
+    case 6 : setToken (COCHETE) ; cout << "COCHETE" << endl; break;
+    case 8 : setToken (ID) ; cout << "ID" << endl; break;
   }
 }

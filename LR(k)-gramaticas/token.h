@@ -4,7 +4,15 @@
 using namespace std;
 
 class Tokens{
-  protected:
+  public:
+     enum automato_reservadas {ID = 7,
+      VIRGULA,
+      COCHETE,
+      ABREPAR,
+      FECHAPAR,
+      DOLAR 
+    }; 
+ protected:
     int getToken ();
     void setToken (int new_token);
     void printTokens ();
@@ -15,13 +23,6 @@ class Tokens{
     void setToken (int new_token, int qnt);
     void EraseToken ();
     int SizeToken ();
-    enum automato_reservadas {ID = 7,
-      PLUS,
-      ASTERISCO,
-      ABREPAR,
-      FECHAPAR,
-      DOLAR 
-    }; 
   private:
     vector<int> Token;
 };

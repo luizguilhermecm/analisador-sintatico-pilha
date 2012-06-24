@@ -2,7 +2,7 @@
 
 #define estados 9 
 #define alfabeto 7
-#define estado_erro 9 
+#define estado_erro 10 
 
 class Lexico : public Tokens{
   public:

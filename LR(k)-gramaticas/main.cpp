@@ -4,8 +4,9 @@
 using namespace std;
 
 int main (int argc, char *argv[]){
-  Sintatico novo;
-  novo.AnalisadorLexico(argv[1]);
-  novo.S();
-  return 0;
+        Sintatico novo;
+        novo.AnalisadorLexico(argv[1]);
+        novo.analiseSLR();
+
+        return 0;
 }
