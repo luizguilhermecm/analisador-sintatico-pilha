@@ -4,6 +4,12 @@ class Sintatico;
 
 typedef void (Sintatico::*pSLR)();
 
+struct SLR{
+        pSLR pmethod;
+        int action;
+        int value;
+};
+
 class Sintatico : public Lexico {
         public:
                 enum Actions{
@@ -20,6 +26,8 @@ class Sintatico : public Lexico {
                 };
                 Sintatico();
                 void imprime();
+                SLR InitSlr(int _action, int _value, pSLR _pmethod);
+                SLR InitSlr(int _action, int _value);
 
                 void avancar();
                 void analise();
@@ -44,11 +52,6 @@ class Sintatico : public Lexico {
                 struct cell{
                         int _tok;
                         int _state;
-                };
-                struct SLR{
-                        pSLR pmethod;
-                        int action;
-                        int value;
                 };
                 SLR SLR_tab[12][10];
 

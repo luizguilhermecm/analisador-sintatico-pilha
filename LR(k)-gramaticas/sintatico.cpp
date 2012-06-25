@@ -1,6 +1,22 @@
 #include "sintatico.h"
 #include <stack>
 
+SLR Sintatico::InitSlr(int _action, int _value, pSLR _pmethod){
+        SLR nova;
+        nova.action = _action;
+        nova.value = _value;
+        nova.pmethod = _pmethod;
+        return nova;
+}
+
+SLR Sintatico::InitSlr(int _action, int _value){
+        SLR nova;
+        nova.action = _action;
+        nova.value = _value;
+        nova.pmethod = NULL;
+        return nova;
+}
+
 Sintatico::Sintatico(){
         indice[0] = ID; 
         indice[1] = ABREPAR; 
@@ -19,126 +35,49 @@ Sintatico::Sintatico(){
                 }
         }
 
-        SLR_tab[1][0].value = 3;
-        SLR_tab[1][0].action = SHIFT;
+        SLR_tab[1][0] = InitSlr(SHIFT, 3);
+        SLR_tab[1][7] = InitSlr(GOTO, 2);
 
-        SLR_tab[1][7].value = 2;
-        SLR_tab[1][7].action = GOTO;
+        SLR_tab[2][5] = InitSlr(ACCEPT, NULL);
 
-        SLR_tab[2][5].value = NULL;
-        SLR_tab[2][5].action = ACCEPT;
+        SLR_tab[3][1] = InitSlr(SHIFT, 5);
+        SLR_tab[3][2] = InitSlr(REDUCE, 3, &Sintatico::P3);
+        SLR_tab[3][3] = InitSlr(REDUCE, 3, &Sintatico::P3);
+        SLR_tab[3][4] = InitSlr(REDUCE, 3, &Sintatico::P3);
+        SLR_tab[3][5] = InitSlr(REDUCE, 3, &Sintatico::P3);
+        SLR_tab[3][8] = InitSlr(GOTO, 4);
+       
+        SLR_tab[4][2] = InitSlr(REDUCE, 1, &Sintatico::B1);
+        SLR_tab[4][3] = InitSlr(REDUCE, 1, &Sintatico::B1);
+        SLR_tab[4][4] = InitSlr(REDUCE, 1, &Sintatico::B1);
+        SLR_tab[4][5] = InitSlr(REDUCE, 1, &Sintatico::B1);
+      
+        SLR_tab[5][0] = InitSlr(SHIFT, 3);
+        SLR_tab[5][7] = InitSlr(GOTO, 7);
+        SLR_tab[5][9] = InitSlr(GOTO, 6);
 
-        SLR_tab[3][1].value = 5;
-        SLR_tab[3][1].action = SHIFT;
-         
-        SLR_tab[3][2].value = 3;
-        SLR_tab[3][2].action = REDUCE;
-        SLR_tab[3][2].pmethod = &Sintatico::P3;
-        
-        SLR_tab[3][3].value = 3;
-        SLR_tab[3][3].action = REDUCE;
-        SLR_tab[3][3].pmethod = &Sintatico::P3;
-        
-        SLR_tab[3][4].value = 3;
-        SLR_tab[3][4].action = REDUCE;
-        SLR_tab[3][4].pmethod = &Sintatico::P3;
-       
-        SLR_tab[3][5].value = 3;
-        SLR_tab[3][5].action = REDUCE;
-        SLR_tab[3][5].pmethod = &Sintatico::P3;
-       
-        SLR_tab[3][8].value = 4;
-        SLR_tab[3][8].action = GOTO;
-         
-        SLR_tab[4][2].value = 1;
-        SLR_tab[4][2].action = REDUCE;
-        SLR_tab[4][2].pmethod = &Sintatico::B1;
-        
-        SLR_tab[4][3].value = 1;
-        SLR_tab[4][3].action = REDUCE;
-        SLR_tab[4][3].pmethod = &Sintatico::B1;
-        
-        SLR_tab[4][4].value = 1;
-        SLR_tab[4][4].action = REDUCE;
-        SLR_tab[4][4].pmethod = &Sintatico::B1;
-       
-        SLR_tab[4][5].value = 1;
-        SLR_tab[4][5].action = REDUCE;
-        SLR_tab[4][5].pmethod = &Sintatico::B1;
-        
-        SLR_tab[5][0].value = 3;
-        SLR_tab[5][0].action = SHIFT;
-         
-        SLR_tab[5][7].value = 7;
-        SLR_tab[5][7].action = GOTO;
-         
-        SLR_tab[5][9].value = 6;
-        SLR_tab[5][9].action = GOTO;
-         
-        SLR_tab[6][2].value = 8;
-        SLR_tab[6][2].action = SHIFT;
-         
-        SLR_tab[6][3].value = 9;
-        SLR_tab[6][3].action = SHIFT;
-          
-        SLR_tab[7][2].value = 5;
-        SLR_tab[7][2].action = REDUCE;
-        SLR_tab[7][2].pmethod = &Sintatico::E5;
-          
-        SLR_tab[7][3].value = 5;
-        SLR_tab[7][3].action = REDUCE;
-        SLR_tab[7][3].pmethod = &Sintatico::E5;
-          
-        SLR_tab[7][4].value = 10;
-        SLR_tab[7][4].action = SHIFT;
-         
-        SLR_tab[8][2].value = 2;
-        SLR_tab[8][2].action = REDUCE;
-        SLR_tab[8][2].pmethod = &Sintatico::B2;
-        
-        SLR_tab[8][3].value = 2;
-        SLR_tab[8][3].action = REDUCE;
-        SLR_tab[8][3].pmethod = &Sintatico::B2;
-        
-        SLR_tab[8][4].value = 2;
-        SLR_tab[8][4].action = REDUCE;
-        SLR_tab[8][4].pmethod = &Sintatico::B2;
-       
-        SLR_tab[8][5].value = 2;
-        SLR_tab[8][5].action = REDUCE;
-        SLR_tab[8][5].pmethod = &Sintatico::B2;
-          
-        SLR_tab[9][2].value = 4;
-        SLR_tab[9][2].action = REDUCE;
-        SLR_tab[9][2].pmethod = &Sintatico::P4;
-        
-        SLR_tab[9][3].value = 4;
-        SLR_tab[9][3].action = REDUCE;
-        SLR_tab[9][3].pmethod = &Sintatico::P4;
-        
-        SLR_tab[9][4].value = 4;
-        SLR_tab[9][4].action = REDUCE;
-        SLR_tab[9][4].pmethod = &Sintatico::P4;
-       
-        SLR_tab[9][5].value = 4;
-        SLR_tab[9][5].action = REDUCE;
-        SLR_tab[9][5].pmethod = &Sintatico::P4;
-        
-        SLR_tab[10][0].value = 5;
-        SLR_tab[10][0].action = SHIFT;
-        
-        SLR_tab[10][9].value = 11;
-        SLR_tab[10][9].action = GOTO;
+        SLR_tab[6][2] = InitSlr(SHIFT, 8);
+        SLR_tab[6][3] = InitSlr(SHIFT, 9);
+
+        SLR_tab[7][2] = InitSlr(REDUCE, 5, &Sintatico::E5);
+        SLR_tab[7][3] = InitSlr(REDUCE, 5, &Sintatico::E5);
+        SLR_tab[7][4] = InitSlr(SHIFT, 10);
+      
+        SLR_tab[8][2] = InitSlr(REDUCE, 2, &Sintatico::B2);
+        SLR_tab[8][3] = InitSlr(REDUCE, 2, &Sintatico::B2);
+        SLR_tab[8][4] = InitSlr(REDUCE, 2, &Sintatico::B2);
+        SLR_tab[8][5] = InitSlr(REDUCE, 2, &Sintatico::B2);
+      
+        SLR_tab[9][2] = InitSlr(REDUCE, 4, &Sintatico::P4);
+        SLR_tab[9][3] = InitSlr(REDUCE, 4, &Sintatico::P4);
+        SLR_tab[9][4] = InitSlr(REDUCE, 4, &Sintatico::P4);
+        SLR_tab[9][5] = InitSlr(REDUCE, 4, &Sintatico::P4);
+      
+        SLR_tab[10][0] = InitSlr(SHIFT, 5);
+        SLR_tab[10][9] = InitSlr(GOTO, 11);
  
-        SLR_tab[11][2].value = 6;
-        SLR_tab[11][2].action = REDUCE;
-        SLR_tab[11][2].pmethod = &Sintatico::E6;
-       
-        SLR_tab[11][3].value = 6;
-        SLR_tab[11][3].action = REDUCE;
-        SLR_tab[11][3].pmethod = &Sintatico::E6;
- 
-
+        SLR_tab[11][2] = InitSlr(REDUCE, 6, &Sintatico::E6);
+        SLR_tab[11][3] = InitSlr(REDUCE, 6, &Sintatico::E6);
 }
 
 void Sintatico::imprime(){
@@ -305,117 +244,3 @@ void Sintatico::E6(){
         celula._state = goToState(pilha.top()._state, NTE); 
         pilha.push(celula); //nesse ponto precisa atualizar o estado_atual.
 }
-
-/*
-   void Sintatico::error(){
-   cout << "ERRO " << tok << endl;
-   exit(0);
-   }
-
-   void Sintatico::error(int erro, int queria){
-//  cout << "ERRO " << erro << "--" << queria << "linha " << linha << endl;
-cout << "ERRO " << "linha " << linha << endl;
-//  avancar();
-exit (0);
-}
-void Sintatico::avancar(){ 
-EraseToken();   tok = getToken(); 
-pilha.pop();
-analise();
-}
-
-void Sintatico::eat(int token_consumir){ 
-if (Lexico::IsEqual(tok,token_consumir)){
-avancar();
-} 
-}
-
-void Sintatico::analise(){
-cout << "ANALISE FOR - "<< pilha.top() << endl;
-if (pilha.top() == DOLAR && SizeToken() == 0 ){
-cout << "sucess";
-printTokens();
-exit(0);
-}
-else if (pilha.empty())
-cout << "VAZIA DAMMIT";
-
-else if (pilha.top() == DOLAR && SizeToken() != 0)
-error();
-
-else if (pilha.top() == DOLAR) cout << "IUPI" << endl;
-
-else if (pilha.top() > 6){
-if (tok == pilha.top()) avancar();
-else error();
-}
-else if (pilha.top() <= 6){
-cout << pilha.top() << " - " << SizeToken() <<  " - " << tok <<endl;
-if (pilha.top() == 2) E();
-else if (pilha.top() == 3) E_();
-else if (pilha.top() == 4) T();
-else if (pilha.top() == 5) T_();
-else if (pilha.top() == 6) F();
-}
-else error();
-}
-
-void Sintatico::S(){
-tok = getToken();
-cout << tok << endl;
-pilha.push(DOLAR);
-pilha.push(2);
-analise();
-}
-
-void Sintatico::E(){
-pilha.pop();
-pilha.push(3);
-pilha.push(4);
-
-analise();
-} 
-void Sintatico::E_(){
-pilha.pop();
-if (tok == PLUS){
-        pilha.push(3);
-        pilha.push(4);
-        pilha.push(PLUS);
-}
-
-analise();
-}
-
-void Sintatico::T(){
-        pilha.pop();
-        pilha.push(5);
-        pilha.push(6);
-
-        analise();
-}
-
-void Sintatico::T_(){
-        pilha.pop();
-        if (tok == ASTERISCO){
-                pilha.push(5);
-                pilha.push(6);
-                pilha.push(ASTERISCO);
-        }
-
-        analise();
-}
-
-void Sintatico::F(){
-        pilha.pop();
-        if (tok == ID){
-                pilha.push(ID);
-        }
-        else if (tok == ABREPAR){
-                pilha.push(FECHAPAR);
-                pilha.push(2);
-                pilha.push(ABREPAR);
-        }
-
-        analise();
-}
-*/
