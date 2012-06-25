@@ -1,22 +1,6 @@
 #include "sintatico.h"
 #include <stack>
 
-SLR Sintatico::InitSlr(int _action, int _value, pSLR _pmethod){
-        SLR nova;
-        nova.action = _action;
-        nova.value = _value;
-        nova.pmethod = _pmethod;
-        return nova;
-}
-
-SLR Sintatico::InitSlr(int _action, int _value){
-        SLR nova;
-        nova.action = _action;
-        nova.value = _value;
-        nova.pmethod = NULL;
-        return nova;
-}
-
 Sintatico::Sintatico(){
         indice[0] = ID; 
         indice[1] = ABREPAR; 
@@ -28,56 +12,74 @@ Sintatico::Sintatico(){
         indice[7] = NTB; 
         indice[8] = NTP; 
         indice[9] = NTE; 
+}
 
+LR Sintatico::InitLr(int _action, int _value, pLR _pmethod){
+        LR nova;
+        nova.action = _action;
+        nova.value = _value;
+        nova.pmethod = _pmethod;
+        return nova;
+}
+
+LR Sintatico::InitLr(int _action, int _value){
+        LR nova;
+        nova.action = _action;
+        nova.value = _value;
+        nova.pmethod = NULL;
+        return nova;
+}
+
+void Sintatico::InitSlr(){
         for (int i = 0; i < 12; i++){
                 for (int j = 0; j < 10; j++){
-                        SLR_tab[i][j].pmethod = &Sintatico::error;
+                        LR_tab[i][j].pmethod = &Sintatico::error;
                 }
         }
 
-        SLR_tab[1][0] = InitSlr(SHIFT, 3);
-        SLR_tab[1][7] = InitSlr(GOTO, 2);
+        LR_tab[1][0] = InitLr(SHIFT, 3);
+        LR_tab[1][7] = InitLr(GOTO, 2);
 
-        SLR_tab[2][5] = InitSlr(ACCEPT, NULL);
+        LR_tab[2][5] = InitLr(ACCEPT, NULL);
 
-        SLR_tab[3][1] = InitSlr(SHIFT, 5);
-        SLR_tab[3][2] = InitSlr(REDUCE, 3, &Sintatico::P3);
-        SLR_tab[3][3] = InitSlr(REDUCE, 3, &Sintatico::P3);
-        SLR_tab[3][4] = InitSlr(REDUCE, 3, &Sintatico::P3);
-        SLR_tab[3][5] = InitSlr(REDUCE, 3, &Sintatico::P3);
-        SLR_tab[3][8] = InitSlr(GOTO, 4);
+        LR_tab[3][1] = InitLr(SHIFT, 5);
+        LR_tab[3][2] = InitLr(REDUCE, 3, &Sintatico::P3);
+        LR_tab[3][3] = InitLr(REDUCE, 3, &Sintatico::P3);
+        LR_tab[3][4] = InitLr(REDUCE, 3, &Sintatico::P3);
+        LR_tab[3][5] = InitLr(REDUCE, 3, &Sintatico::P3);
+        LR_tab[3][8] = InitLr(GOTO, 4);
        
-        SLR_tab[4][2] = InitSlr(REDUCE, 1, &Sintatico::B1);
-        SLR_tab[4][3] = InitSlr(REDUCE, 1, &Sintatico::B1);
-        SLR_tab[4][4] = InitSlr(REDUCE, 1, &Sintatico::B1);
-        SLR_tab[4][5] = InitSlr(REDUCE, 1, &Sintatico::B1);
+        LR_tab[4][2] = InitLr(REDUCE, 1, &Sintatico::B1);
+        LR_tab[4][3] = InitLr(REDUCE, 1, &Sintatico::B1);
+        LR_tab[4][4] = InitLr(REDUCE, 1, &Sintatico::B1);
+        LR_tab[4][5] = InitLr(REDUCE, 1, &Sintatico::B1);
       
-        SLR_tab[5][0] = InitSlr(SHIFT, 3);
-        SLR_tab[5][7] = InitSlr(GOTO, 7);
-        SLR_tab[5][9] = InitSlr(GOTO, 6);
+        LR_tab[5][0] = InitLr(SHIFT, 3);
+        LR_tab[5][7] = InitLr(GOTO, 7);
+        LR_tab[5][9] = InitLr(GOTO, 6);
 
-        SLR_tab[6][2] = InitSlr(SHIFT, 8);
-        SLR_tab[6][3] = InitSlr(SHIFT, 9);
+        LR_tab[6][2] = InitLr(SHIFT, 8);
+        LR_tab[6][3] = InitLr(SHIFT, 9);
 
-        SLR_tab[7][2] = InitSlr(REDUCE, 5, &Sintatico::E5);
-        SLR_tab[7][3] = InitSlr(REDUCE, 5, &Sintatico::E5);
-        SLR_tab[7][4] = InitSlr(SHIFT, 10);
+        LR_tab[7][2] = InitLr(REDUCE, 5, &Sintatico::E5);
+        LR_tab[7][3] = InitLr(REDUCE, 5, &Sintatico::E5);
+        LR_tab[7][4] = InitLr(SHIFT, 10);
       
-        SLR_tab[8][2] = InitSlr(REDUCE, 2, &Sintatico::B2);
-        SLR_tab[8][3] = InitSlr(REDUCE, 2, &Sintatico::B2);
-        SLR_tab[8][4] = InitSlr(REDUCE, 2, &Sintatico::B2);
-        SLR_tab[8][5] = InitSlr(REDUCE, 2, &Sintatico::B2);
+        LR_tab[8][2] = InitLr(REDUCE, 2, &Sintatico::B2);
+        LR_tab[8][3] = InitLr(REDUCE, 2, &Sintatico::B2);
+        LR_tab[8][4] = InitLr(REDUCE, 2, &Sintatico::B2);
+        LR_tab[8][5] = InitLr(REDUCE, 2, &Sintatico::B2);
       
-        SLR_tab[9][2] = InitSlr(REDUCE, 4, &Sintatico::P4);
-        SLR_tab[9][3] = InitSlr(REDUCE, 4, &Sintatico::P4);
-        SLR_tab[9][4] = InitSlr(REDUCE, 4, &Sintatico::P4);
-        SLR_tab[9][5] = InitSlr(REDUCE, 4, &Sintatico::P4);
+        LR_tab[9][2] = InitLr(REDUCE, 4, &Sintatico::P4);
+        LR_tab[9][3] = InitLr(REDUCE, 4, &Sintatico::P4);
+        LR_tab[9][4] = InitLr(REDUCE, 4, &Sintatico::P4);
+        LR_tab[9][5] = InitLr(REDUCE, 4, &Sintatico::P4);
       
-        SLR_tab[10][0] = InitSlr(SHIFT, 5);
-        SLR_tab[10][9] = InitSlr(GOTO, 11);
+        LR_tab[10][0] = InitLr(SHIFT, 5);
+        LR_tab[10][9] = InitLr(GOTO, 11);
  
-        SLR_tab[11][2] = InitSlr(REDUCE, 6, &Sintatico::E6);
-        SLR_tab[11][3] = InitSlr(REDUCE, 6, &Sintatico::E6);
+        LR_tab[11][2] = InitLr(REDUCE, 6, &Sintatico::E6);
+        LR_tab[11][3] = InitLr(REDUCE, 6, &Sintatico::E6);
 }
 
 void Sintatico::imprime(){
@@ -100,7 +102,7 @@ int Sintatico::getIndice(){
 void Sintatico::Shift(){
 }
 
-void Sintatico::analiseSLR(){
+void Sintatico::analiseLR(){
         while(SizeToken() != 0){
                 entrada.push(getToken());
                 EraseToken();
@@ -114,24 +116,24 @@ void Sintatico::analiseSLR(){
         pilha.push(celula);
 
         while (acao_atual != ACCEPT){
-                if (SLR_tab[estado_atual][indice_atual].action == SHIFT){
-                        estado_atual = SLR_tab[estado_atual][indice_atual].value;
+                if (LR_tab[estado_atual][indice_atual].action == SHIFT){
+                        estado_atual = LR_tab[estado_atual][indice_atual].value;
                         celula._tok = entrada.top();
                         celula._state = estado_atual;
                         pilha.push(celula);
                         entrada.pop();
                 }
-                else if (SLR_tab[estado_atual][indice_atual].action == GOTO){
-                        estado_atual = SLR_tab[estado_atual][indice_atual].value;
+                else if (LR_tab[estado_atual][indice_atual].action == GOTO){
+                        estado_atual = LR_tab[estado_atual][indice_atual].value;
                 }
-                else if (SLR_tab[estado_atual][indice_atual].action == REDUCE){
-                        (*this.*SLR_tab[estado_atual][indice_atual].pmethod)();
+                else if (LR_tab[estado_atual][indice_atual].action == REDUCE){
+                        (*this.*LR_tab[estado_atual][indice_atual].pmethod)();
                         //fazer reducao, ainda nao sei como.
                         //fazer uma funcao para cada regra e chamar essa regra para reduzir
                 }
-                else if (SLR_tab[estado_atual][indice_atual].action == ACCEPT){
+                else if (LR_tab[estado_atual][indice_atual].action == ACCEPT){
                         cout << "Cadeia aceita" << endl;
-                        exit (0);
+                        break;
                         //aceitou cadeia, ainda nao sei como fazer.
                         //condicao de saida do while ...
                 }
@@ -146,16 +148,16 @@ void Sintatico::analiseSLR(){
 
 int Sintatico::goToState(int state, int nt){
         if (nt == NTS){
-                return SLR_tab[state][6].value;
+                return LR_tab[state][6].value;
         }
         else if (nt == NTB){
-                return SLR_tab[state][7].value;
+                return LR_tab[state][7].value;
         }
         else if (nt == NTP){
-                return SLR_tab[state][8].value;
+                return LR_tab[state][8].value;
         }
         else if (nt == NTE){
-                return SLR_tab[state][9].value;
+                return LR_tab[state][9].value;
         }
         else error();
 }

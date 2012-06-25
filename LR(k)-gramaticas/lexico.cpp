@@ -54,14 +54,20 @@ void Lexico::print () {
 }
 
 
-void Lexico::AnalisadorLexico(char * argumento){
-  ifstream fin (argumento);
+//void Lexico::AnalisadorLexico(char * argumento){
+
+void Lexico::AnalisadorLexico(string cadeia){
+//  ifstream fin (argumento);
   vector<char> caracter;
   char ch;
-  int i;
-  while (fin.get(ch)) caracter.push_back(ch); 
-  fin.clear();
-  fin.close();
+  int i = 0;
+  while (i < cadeia.size()){
+        caracter.push_back(cadeia[i]);
+        i++;
+  }
+//  while (fin.get(ch)) caracter.push_back(ch); 
+//  fin.clear();
+//  fin.close();
   int current_state = 1;
   int final_state = 0;
   int indice_caracter;

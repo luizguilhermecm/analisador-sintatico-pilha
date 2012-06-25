@@ -2,10 +2,10 @@
 #include <stack>
 class Sintatico;
 
-typedef void (Sintatico::*pSLR)();
+typedef void (Sintatico::*pLR)();
 
-struct SLR{
-        pSLR pmethod;
+struct LR{
+        pLR pmethod;
         int action;
         int value;
 };
@@ -26,8 +26,11 @@ class Sintatico : public Lexico {
                 };
                 Sintatico();
                 void imprime();
-                SLR InitSlr(int _action, int _value, pSLR _pmethod);
-                SLR InitSlr(int _action, int _value);
+                void InitLR1();
+                void InitLalr1();
+                void InitSlr();
+                LR InitLr(int _action, int _value, pLR _pmethod);
+                LR InitLr(int _action, int _value);
 
                 void avancar();
                 void analise();
@@ -38,7 +41,7 @@ class Sintatico : public Lexico {
                 int goToState(int state, int nt);
                 void Shift();
                 int getIndice();
-                void analiseSLR();
+                void analiseLR();
 
                 void S0();
                 void B1();
@@ -53,7 +56,7 @@ class Sintatico : public Lexico {
                         int _tok;
                         int _state;
                 };
-                SLR SLR_tab[12][10];
+                LR LR_tab[12][10];
 
                 int indice[11];
                 int estado_atual;
