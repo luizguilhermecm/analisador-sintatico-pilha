@@ -1,1 +1,5 @@
-Gramatica SEFT
+Trabalho de Compiladores
+
+Analisador Sintático para a gramática (gramatica.png) sendo a mesma SLR, LR(1) e LALR(1).
+
+Para compilar:  $ make run
