@@ -1,5 +1,6 @@
 #include "lexico.cpp"
 #include <stack>
+
 class Sintatico;
 
 typedef void (Sintatico::*pLR)();
@@ -24,24 +25,21 @@ class Sintatico : public Lexico {
                         NTS,
                         NTE
                 };
+
                 Sintatico();
-                void imprime();
-                void InitLR1();
+
+                void InitLr1();
                 void InitLalr1();
                 void InitSlr();
+
                 LR InitLr(int _action, int _value, pLR _pmethod);
                 LR InitLr(int _action, int _value);
 
-                void avancar();
-                void analise();
-                void eat(int token_consumir);
-                void error();
-                void error(int erro, int queria);
-
                 int goToState(int state, int nt);
-                void Shift();
                 int getIndice();
+
                 void analiseLR();
+                void error();
 
                 void S0();
                 void B1();
@@ -56,7 +54,7 @@ class Sintatico : public Lexico {
                         int _tok;
                         int _state;
                 };
-                LR LR_tab[12][10];
+                LR LR_tab[17][10];
 
                 int indice[11];
                 int estado_atual;
@@ -67,5 +65,4 @@ class Sintatico : public Lexico {
                 stack<int> entrada;
                 stack<cell> pilha;
                 cell celula;
-                //stack<int> pilha;
 };

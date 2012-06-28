@@ -102,17 +102,15 @@ void Lexico::AnalisadorLexico(string cadeia){
     }
   }
   Token (final_state);
-  printTokens();
-//  Inverter();
 }
 
 void Lexico::Token (int final) {
 	switch (final) {
-    case 2 : setToken (DOLAR) ; cout << "DOLAR \n"; break;
-    case 3 : setToken (ABREPAR) ; cout << "ABREPAR \n"; break;
-		case 4 : setToken (FECHAPAR) ; cout << "FECHAPAR" << endl; break;
-    case 5 : setToken (VIRGULA) ; cout << "VIRGULA" << endl; break;
-    case 6 : setToken (COCHETE) ; cout << "COCHETE" << endl; break;
-    case 8 : setToken (ID) ; cout << "ID" << endl; break;
+    case 2 : setToken (DOLAR)    ; break ;
+    case 3 : setToken (ABREPAR)  ; break ;
+		case 4 : setToken (FECHAPAR) ; break ;
+    case 5 : setToken (VIRGULA)  ; break ;
+    case 6 : setToken (COCHETE)  ; break ;
+    case 8 : setToken (ID)       ; break ;
   }
 }
