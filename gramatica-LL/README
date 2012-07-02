@@ -1,2 +1,4 @@
 Trabalho de compiladores
-Gramatica SEFT
+Gramática LL(1); 
+
+para compilar:  $ make ARGS="teste.txt" run
