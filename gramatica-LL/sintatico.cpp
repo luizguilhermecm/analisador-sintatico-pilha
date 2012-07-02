@@ -25,10 +25,8 @@ void Sintatico::eat(int token_consumir){
   } 
 }
 void Sintatico::analise(){
-  cout << "ANALISE FOR - "<< pilha.top() << endl;
   if (pilha.top() == DOLAR && SizeToken() == 0 ){
-    cout << "sucess";
-    printTokens();
+    cout << "sucess \n";
     exit(0);
   }
 
@@ -45,7 +43,7 @@ void Sintatico::analise(){
     else error();
   }
   else if (pilha.top() <= 6){
-    cout << pilha.top() << " - " << SizeToken() <<  " - " << tok <<endl;
+    //cout << pilha.top() << " - " << SizeToken() <<  " - " << tok <<endl;
     if (pilha.top() == 2) E();
     else if (pilha.top() == 3) E_();
     else if (pilha.top() == 4) T();
@@ -57,7 +55,6 @@ void Sintatico::analise(){
 
 void Sintatico::S(){
   tok = getToken();
-  cout << tok << endl;
   pilha.push(DOLAR);
   pilha.push(2);
   analise();
